@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scam Shield - Detecting Deceptive Messages</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+<header class="hero">
+    <div class="hero-inner">
+        <span class="hero-badge">Scam Shield</span>
+        <h1>Detecting Deceptive Messages Using Random Forest Classification</h1>
+        <p class="hero-lede">
+            Paste any message you suspect is a scam. The analyst identifies
+            the scam type, scores the risk, recommends a strong response,
+            and judges whether your planned reply succeeds.
+        </p>
+        <div class="hero-stats">
+            <div class="stat"><span class="stat-num">6</span><span class="stat-label">Scam Categories</span></div>
+            <div class="stat"><span class="stat-num">4</span><span class="stat-label">Recommended Responses</span></div>
+            <div class="stat"><span class="stat-num">3</span><span class="stat-label">Risk Levels</span></div>
+            <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Offline</span></div>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <section class="card-section live">
+        <div class="section-head">
+            <h2>Analyze Your Own Message</h2>
+            <p>Paste the scam message. Add the planned response if you want a success verdict.</p>
+        </div>
+
+        <form id="live-form" class="live-form" autocomplete="off">
+            <div class="field">
+                <label for="scammer_message">Scammer message <span class="req">*</span></label>
+                <textarea id="scammer_message" name="scammer_message" rows="4" required></textarea>
+            </div>
+            <div class="field">
+                <label for="user_response">Your response <span class="opt">(optional)</span></label>
+                <textarea id="user_response" name="user_response" rows="4" placeholder="Leave blank if you have not replied yet"></textarea>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label for="timestamp">Timestamp <span class="opt">(optional)</span></label>
+                    <input type="text" id="timestamp" name="timestamp" placeholder="MM/DD/YY/HH:MM:SS" />
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit" class="btn-primary">Analyze</button>
+                <button type="button" class="btn-ghost" id="reset-btn">Reset</button>
+            </div>
+            <p class="error" id="live-error" hidden></p>
+        </form>
+
+        <article class="verdict-card" id="live-result" hidden>
+            <span class="card-number big">&#9733;</span>
+            <div class="verdict-content">
+                <header class="verdict-head">
+                    <h3>Analysis Verdict</h3>
+                    <span class="verdict-meta" id="live-meta"></span>
+                </header>
+                <section class="verdict-section">
+                    <h4>1. Scam Type</h4>
+                    <div class="verdict-fields">
+                        <div><span class="vf-label">Category</span><span class="vf-val" id="live-category"></span></div>
+                        <div><span class="vf-label">Risk score</span><span class="vf-val" id="live-risk-score"></span></div>
+                        <div><span class="vf-label">Risk level</span><span class="vf-val risk-pill" id="live-risk-level"></span></div>
+                    </div>
+                </section>
+                <section class="verdict-section">
+                    <h4>2. Recommended Response</h4>
+                    <p class="rec-line">Use a <strong id="rec-name"></strong> reply to shut this conversation down.</p>
+                </section>
+                <section class="verdict-section" id="live-user-section" hidden>
+                    <h4>3. Your Response Verdict</h4>
+                    <div class="verdict-fields">
+                        <div><span class="vf-label">Effectiveness</span><span class="vf-val" id="live-eff"></span></div>
+                        <div><span class="vf-label">Success</span><span class="vf-val success-pill" id="live-success"></span></div>
+                    </div>
+                    <div class="reply-echo" id="live-reply"></div>
+                </section>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer class="page-footer">
+    <p>Scam Shield &middot; CST9 ML1 &middot; </p>
+</footer>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+/* ======================================================================
+   Scam Shield - Scam Analyst UI
+   ====================================================================== */
+
+:root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --surface-muted: #f4f5f9;
+    --border: #e8eaf2;
+    --border-strong: #d8dce7;
+    --text: #1d2233;
+    --text-muted: #6a7285;
+    --text-faint: #94a0b3;
+    --accent: #d83a55;
+    --accent-soft: #fde9ed;
+    --success: #1aa76a;
+    --success-soft: #e6f6ee;
+    --warning: #ef9a2b;
+    --warning-soft: #fef1dd;
+    --info: #2d6cdf;
+    --info-soft: #e9effd;
+    --shadow: 0 1px 2px rgba(20, 23, 36, 0.04), 0 6px 18px rgba(20, 23, 36, 0.05);
+    --radius: 12px;
+    --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+    background:
+        radial-gradient(circle at 0% 0%, rgba(216, 58, 85, 0.08), transparent 45%),
+        radial-gradient(circle at 100% 0%, rgba(45, 108, 223, 0.08), transparent 45%),
+        var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+.hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+}
+.hero-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(216, 58, 85, 0.20);
+}
+.hero h1 {
+    font-size: clamp(22px, 3vw, 32px);
+    margin: 0 0 14px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    max-width: 900px;
+}
+.hero-lede {
+    margin: 0;
+    max-width: 720px;
+    color: var(--text-muted);
+    font-size: 16px;
+}
+.hero-stats {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+}
+.stat {
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+}
+.stat-num {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+}
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+}
+
+/* ----------------------------------------------------------------------
+   Layout
+   ---------------------------------------------------------------------- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+.card-section { margin-bottom: 48px; }
+.section-head { margin-bottom: 18px; }
+.section-head h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+.section-head p {
+    margin: 6px 0 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* ----------------------------------------------------------------------
+   Verdict pills
+   ---------------------------------------------------------------------- */
+.card-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+}
+.card-number.big {
+    background: linear-gradient(180deg, #f5a3b0, var(--accent));
+    font-size: 22px;
+}
+
+.risk-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: fit-content;
+}
+.risk-pill.medium   { background: var(--warning-soft); color: var(--warning); }
+.risk-pill.high     { background: var(--accent-soft);  color: var(--accent); }
+.risk-pill.critical { background: var(--accent); color: #ffffff; }
+
+.success-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: fit-content;
+}
+.success-pill.success { background: var(--success-soft); color: var(--success); }
+.success-pill.failure { background: var(--accent-soft);  color: var(--accent); }
+
+/* ----------------------------------------------------------------------
+   Live form
+   ---------------------------------------------------------------------- */
+.live { padding-top: 8px; }
+.live-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.field-row .field { flex: 1; min-width: 200px; }
+.field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+.req { color: var(--accent); font-weight: 700; }
+.opt { color: var(--text-faint); font-weight: 500; font-size: 12px; }
+.field textarea, .field input[type="text"] {
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--surface-muted);
+    transition: border-color 0.2s ease, background 0.2s ease;
+    resize: vertical;
+}
+.field textarea { min-height: 80px; }
+.field textarea:focus, .field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(216, 58, 85, 0.12);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.btn-primary {
+    background: var(--accent);
+    color: #ffffff;
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: 11px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover { background: #b82b44; }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:disabled {
+    background: var(--border-strong);
+    color: var(--text-faint);
+    cursor: not-allowed;
+}
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 11px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.btn-ghost:hover { background: var(--surface-muted); }
+
+.error {
+    color: var(--accent);
+    font-size: 13px;
+    background: var(--accent-soft);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    margin: 0;
+}
+
+/* ----------------------------------------------------------------------
+   Verdict card (live)
+   ---------------------------------------------------------------------- */
+.verdict-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    margin-top: 18px;
+    overflow: hidden;
+}
+.verdict-content {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.verdict-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+}
+.verdict-head h3 { margin: 0; font-size: 18px; font-weight: 700; }
+.verdict-meta { font-size: 12px; color: var(--text-faint); }
+
+.verdict-section h4 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+}
+
+.verdict-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+.verdict-fields > div {
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.vf-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+.vf-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.rec-line {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.5;
+}
+.rec-line strong { font-weight: 700; }
+
+.reply-echo {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--surface-muted);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--info);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* ----------------------------------------------------------------------
+   Responsive
+   ---------------------------------------------------------------------- */
+@media (max-width: 700px) {
+    .hero-inner { padding: 40px 20px 28px; }
+    .container { padding: 28px 16px 40px; }
+    .verdict-card { grid-template-columns: 1fr; }
+    .verdict-card > .card-number {
+        padding: 12px;
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+    .field-row { flex-direction: column; gap: 16px; }
+}
+
+/* ----------------------------------------------------------------------
+   Footer
+   ---------------------------------------------------------------------- */
+.page-footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-faint);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+}
