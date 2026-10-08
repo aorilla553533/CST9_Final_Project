@@ -1,1 +1,6 @@
 streamlit>=1.30
+   streamlit
+   pandas
+   numpy
+   scikit-learn
+   matplotlib
